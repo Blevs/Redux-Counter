@@ -1,42 +1,42 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { increment, decrement } from '../actions';
+import './Counter.scss';
 
 class Counter extends Component {
-    incrementIfOdd = () => {
-        // Stretch Problem: Implement an increment function that
-        // only increments if the counter value is odd
-    };
+  incrementIfOdd = () => {
+    // Stretch Problem: Implement an increment function that
+    // only increments if the counter value is odd
+    Math.abs(this.props.count) % 2 === 1 && this.props.increment();
+  };
 
-    incrementAsync = () => {
-        // Stretch Problem: Implement an increment function that
-        // increments after waiting for one second
-    };
+  incrementAsync = () => {
+    // Stretch Problem: Implement an increment function that
+    // increments after waiting for one second
+    setTimeout(() => this.props.increment(), 1000);
+  };
 
-    render() {
-        // Fill in the two button onClick methods
-        // Upon clicking these buttons, the count
-        // should decrement or increment accordingly
-        return (
-            <p>
-                Clicked: {this.props.count} times
-                <button onClick={() => {/* Fill me in */ }}>
-                    +
-                </button>
-                <button onClick={() => {/* Fill me in */ }}>
-                    -
-                </button>
-                 {/* Uncomment these button tags if you got
-                around to implementing the extra credit functions */}
-                {/* <button onClick={this.incrementIfOdd}>
-                    Increment if odd
-                </button>
-                <button onClick={this.incrementAsync}>
-                    Increment async
-                </button>  */}
-            </p>
-        );
-    }
+  render() {
+    // Fill in the two button onClick methods
+    // Upon clicking these buttons, the count
+    // should decrement or increment accordingly
+    return (
+      <div className="counter">
+        <h1>Clicked</h1>
+        <h2 className="clicked">{this.props.count}</h2>
+        <div className="buttons">
+          <button onClick={this.props.increment}>
+            +
+          </button>
+          <button onClick={this.props.decrement}>
+            -
+          </button>
+          <button onClick={this.incrementIfOdd}> odd+ </button>
+          <button onClick={this.incrementAsync}> async+ </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 // The mapStateToProps function specifies which portion of the
@@ -46,9 +46,9 @@ class Counter extends Component {
 // redux application, though, it would receive only the relevant
 // parts it needs from the state object.
 const mapStateToProps = (state) => {
-    return {
-        count: state.count
-    };
+  return {
+    count: state.count
+  };
 };
 
 // The connect function is called in order to make this component aware
